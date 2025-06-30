@@ -1,7 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import LoginForm from '@/components/auth/LoginForm'
 import RegisterForm from '@/components/auth/RegisterForm'
 import Dashboard from '@/components/dashboard/Dashboard'
@@ -14,7 +13,7 @@ function MainContent() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
       </div>
     )
   }
@@ -31,13 +30,22 @@ function MainContent() {
           <p className="text-gray-600">Automated shift scheduling for your organization</p>
         </div>
 
+        {/* Debug section */}
+        <div className="bg-yellow-100 border border-yellow-400 rounded p-4">
+          <p className="text-sm text-yellow-800">
+            <strong>Debug Info:</strong><br/>
+            NEXT_PUBLIC_API_URL: {process.env.NEXT_PUBLIC_API_URL || 'Not set'}<br/>
+            Current URL: {typeof window !== 'undefined' ? window.location.href : 'Server side'}
+          </p>
+        </div>
+
         <div className="bg-white rounded-lg shadow-xl p-8">
           <div className="flex mb-6">
             <button
               onClick={() => setShowLogin(true)}
               className={`flex-1 py-2 px-4 rounded-l-lg font-medium transition-colors ${
                 showLogin
-                  ? 'bg-primary-600 text-white'
+                  ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -47,7 +55,7 @@ function MainContent() {
               onClick={() => setShowLogin(false)}
               className={`flex-1 py-2 px-4 rounded-r-lg font-medium transition-colors ${
                 !showLogin
-                  ? 'bg-primary-600 text-white'
+                  ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
