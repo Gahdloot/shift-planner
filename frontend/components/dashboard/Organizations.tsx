@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import axios from 'axios'
+
 import toast from 'react-hot-toast'
 import { PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { api } from '@/hooks/useAuth'
 
 const organizationSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -48,7 +49,7 @@ export default function Organizations({ onSelect }: OrganizationsProps) {
 
   const fetchOrganizations = async () => {
     try {
-      const response = await axios.get('/api/organizations')
+      const response = await api.get('/api/organizations')
       setOrganizations(response.data)
     } catch (error) {
       toast.error('Failed to fetch organizations')
@@ -60,10 +61,10 @@ export default function Organizations({ onSelect }: OrganizationsProps) {
   const onSubmit = async (data: OrganizationFormData) => {
     try {
       if (editingOrg) {
-        await axios.put(`/api/organizations/${editingOrg.id}`, data)
+        await api.put(`/api/organizations/${editingOrg.id}`, data)
         toast.success('Organization updated successfully')
       } else {
-        await axios.post('/api/organizations', data)
+        await api.post('/api/organizations', data)
         toast.success('Organization created successfully')
       }
       fetchOrganizations()
@@ -79,7 +80,7 @@ export default function Organizations({ onSelect }: OrganizationsProps) {
     if (!confirm('Are you sure you want to delete this organization?')) return
     
     try {
-      await axios.delete(`/api/organizations/${id}`)
+      await api.delete(`/api/organizations/${id}`)
       toast.success('Organization deleted successfully')
       fetchOrganizations()
     } catch (error: any) {

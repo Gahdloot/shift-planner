@@ -12,11 +12,11 @@ interface User {
   created_at: string;
 }
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   withCredentials: true,
 });
-console.log({ dd: process.env.NEXT_PUBLIC_API_URL });
+
 interface AuthContextType {
   user: User | null;
   loading: boolean;

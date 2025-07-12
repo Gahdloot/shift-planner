@@ -17,12 +17,12 @@ app = FastAPI(
 
 # Add CORS middleware
 app.add_middleware(
-    CORSMiddleware,
-    allow_origins=settings.CORS_ORIGINS,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+       CORSMiddleware,
+       allow_origins=["http://localhost:3000"],  # or ["*"] for all origins (not recommended for production)
+       allow_credentials=True,
+       allow_methods=["*"],
+       allow_headers=["*"],
+   )
 
 # Include API routers
 app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
